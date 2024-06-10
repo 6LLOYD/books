@@ -1,0 +1,24 @@
+.navbar-header {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-header .brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+
+.navbar-header .brand:hover {
+  color: #ffd700; /* Golden color on hover */
+}
+
+.btn-group .btn {
+  margin: 0 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-group .btn.active,
+.btn-group .btn:hover {
+  background-color: #ffd700; /* Golden color for active and hover */
+  color: #fff;
+}
