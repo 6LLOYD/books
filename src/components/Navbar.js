@@ -9,7 +9,7 @@ const Navbar = () => {
         <div className="d-flex justify-content-between align-items-center">
           <h4 className="mb-0">
             <NavLink to="/" className="text-decoration-none text-white brand">
-              BOOKS
+              StorySpheres
             </NavLink>
           </h4>
           <nav className="btn-group">
