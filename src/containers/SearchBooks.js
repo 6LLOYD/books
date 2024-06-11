@@ -13,6 +13,59 @@ const SearchBooks = () => {
     e.preventDefault();
     dispatch(fetchBooks(title));
   };
+  console.log(state);
+  const displayFetchedBooks = state.isLoading ? (
+    <div className="d-flex justify-content-center">
+      <div className="spinner-border text-info" role="status"></div>
+    </div>
+  ) : state.error !== "" ? (
+    <p>{state.error}</p>
+  ) : (
+    state.fetchedBooks.map((data) => {
+      return (
+        <div className="card mb-2" key={data.id}>
+          <div className="card-header">
+            <h5 className="mb-0">
+              <button
+                className="btn btn-link collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target={`#${data.id}`}
+                aria-expanded="false"
+              >
+                {data.volumeInfo.title}
+              </button>
+            </h5>
+          </div>
+          <div id={data.id} className="collapse" data-parent="#accordion">
+            <div className="card-body">
+              {data.volumeInfo.hasOwnProperty("imageLinks") && (
+                <img
+                  src={data.volumeInfo.imageLinks.thumbnail}
+                  alt={data.volumeInfo.title}
+                />
+              )}
+              <h4 className="card-title">Titre: {data.volumeInfo.title}</h4>
+              <h5 className="card-title">Auteur: {data.volumeInfo.authors}</h5>
+              <p className="card-text">
+                Description: {data.volumeInfo.description}
+              </p>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline-secondary"
+                href={data.volumeInfo.previewLink}
+              >
+                Plus d'infos
+              </a>
+              <button className="btn btn-outline-secondary ml-2">
+                Enregistrer
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    })
+  );
 
   return (
     <main role="main">
@@ -42,22 +95,7 @@ const SearchBooks = () => {
         </div>
       </div>
       <div className="container mt-4" style={{ minHeight: "200px" }}>
-        <div className="accordion">
-          <div className="card mb-2">
-            <div className="card-header"></div>
-            <div className="collapse" data-parent="accordion">
-              <div className="card-body">
-                {/* 
-                - Image
-                - Auteur
-                - Description
-                - Btn plus d'infos
-                - Btn enregistrer
-                */}
-              </div>
-            </div>
-          </div>
-        </div>
+        <div id="accordion">{displayFetchedBooks}</div>
       </div>
     </main>
   );
