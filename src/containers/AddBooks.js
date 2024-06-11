@@ -26,22 +26,20 @@ const AddBooks = ({ libraryData, addBook, supprBook, deleteAll }) => {
         {libraryData.books.map((data) => (
           <li
             key={data.id}
-            className="list-group-item list-group-item-light d-flex justify-content-between mt-4"
+            className="list-group-item list-group-item-light d-flex flex-column mt-4"
           >
-            <span>
-              <strong>Titre: </strong>
-              {data.title}
-            </span>
-            <span>
-              <strong>Auteur: </strong>
-              {data.author}
-            </span>
-            <span
-              className="btn btn-danger"
-              onClick={() => supprBook(data.id)} // Utiliser une fonction de rappel ici
+            <div>
+              <strong>Titre:</strong> {data.title}
+            </div>
+            <div>
+              <strong>Auteur:</strong> {data.author}
+            </div>
+            <button
+              className="btn btn-danger mt-2" // Ajouter une marge en haut pour l'espacement
+              onClick={() => supprBook(data.id)}
             >
               X
-            </span>
+            </button>
           </li>
         ))}
       </FlipMove>

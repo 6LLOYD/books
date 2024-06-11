@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBooks } from "../redux/actions/actionFetchBooks";
+import { AddBook } from "../redux/actions/actionAddBokks";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SearchBooks = () => {
   const [title, setTitle] = useState("");
@@ -13,7 +16,22 @@ const SearchBooks = () => {
     e.preventDefault();
     dispatch(fetchBooks(title));
   };
-  console.log(state);
+
+  const handleSave = (title, author) => {
+    const bookToSave = { title, author };
+    dispatch(AddBook(bookToSave));
+    toast.success("Livre enregistré avec succès !", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
+
   const displayFetchedBooks = state.isLoading ? (
     <div className="d-flex justify-content-center">
       <div className="spinner-border text-info" role="status"></div>
@@ -57,7 +75,13 @@ const SearchBooks = () => {
               >
                 Plus d'infos
               </a>
-              <button className="btn btn-outline-secondary ml-2">
+              <button
+                className="btn btn-outline-secondary"
+                style={{ marginLeft: "5px" }}
+                onClick={() =>
+                  handleSave(data.volumeInfo.title, data.volumeInfo.authors)
+                }
+              >
                 Enregistrer
               </button>
             </div>
@@ -97,6 +121,7 @@ const SearchBooks = () => {
       <div className="container mt-4" style={{ minHeight: "200px" }}>
         <div id="accordion">{displayFetchedBooks}</div>
       </div>
+      <ToastContainer />
     </main>
   );
 };
