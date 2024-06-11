@@ -1,14 +1,17 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import reducerAddBooks from "./reducers/reducerAddBooks";
-// import thunk from "redux-thunk";
+import reducerFetchedBooks from "./reducers/reducerFetchBooks";
+import { thunk } from "redux-thunk";
 
 const rootReducer = combineReducers({
   library: reducerAddBooks,
+  search: reducerFetchedBooks,
 });
 
 const store = configureStore({
   reducer: rootReducer,
-  //   middleware: [thunk],
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(thunk),
 });
 
 export default store;
